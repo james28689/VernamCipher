@@ -1,10 +1,5 @@
 import string, random
-
-def xor(a, b):
-	if a != b:
-		return(1)
-	else:
-		return(0)
+from functions import xor
 
 def vernam(plaintext, key):
 	binary_plaintext = ["{0:08b}".format(ord(letter)).replace(" ", "") for letter in plaintext]
@@ -23,4 +18,3 @@ print(ciphertext)
 print([letter for letter in ciphertext])
 print("".join(key))
 print(vernam(ciphertext, key))
-print("Changed in atom")
