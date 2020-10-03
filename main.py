@@ -7,25 +7,12 @@ def xor(a, b):
 		return(0)
 
 def vernam(plaintext, key):
+	binary_plaintext = ["{0:08b}".format(ord(letter)).replace(" ", "") for letter in plaintext]
+	binary_key = ["{0:08b}".format(ord(letter)).replace(" ", "") for letter in key]
+	all_binary = [[binary_plaintext[i], binary_key[i]] for i in range(len(binary_plaintext))]
+	binary_cipher = ["".join([str(xor(couple[0][x], couple[1][x])) for x in range(len(couple[0]))]) for couple in all_binary]
+	plaintext_cipher = "".join([chr(int(letter, 2)) for letter in binary_cipher])
 
-	binary_plaintext = ""
-	for letter in plaintext:
-		binary_plaintext += "{0:08b}".format(ord(letter))
-	binary_plaintext.replace(" ", "")
-
-	binary_key = ""
-	for letter in key:
-		binary_key += "{0:08b}".format(ord(letter))
-	binary_key.replace(" ", "")
-
-	binary_cipher = ""
-	for i in range(len(binary_plaintext)):
-		binary_cipher += str(xor(binary_plaintext[i], binary_key[i]))
-
-	plaintext_cipher = ""
-	for i in range(0, len(binary_cipher), 8):
-		plaintext_cipher += chr(int(binary_cipher[i:i+8], 2))
-	
 	return(plaintext_cipher)
 
 plaintext = input("Original Text: ")
